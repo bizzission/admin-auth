@@ -14,9 +14,9 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Spatie\Image\Exceptions\InvalidManipulation;
-use Spatie\MediaLibrary\HasMedia\HasMedia;
-use Spatie\MediaLibrary\Models\Media;
+use Spatie\MediaLibrary\HasMedia;
 use Spatie\Permission\Traits\HasRoles;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
 /**
  * @property mixed first_name
@@ -104,7 +104,7 @@ class AdminUser extends Authenticatable implements CanActivateContract, HasMedia
     /**
      * Register media collections
      */
-    public function registerMediaCollections()
+    public function registerMediaCollections(): void
     {
         $this->addMediaCollection('avatar')
             ->accepts('image/*');
@@ -116,7 +116,7 @@ class AdminUser extends Authenticatable implements CanActivateContract, HasMedia
      * @param Media|null $media
      * @throws InvalidManipulation
      */
-    public function registerMediaConversions(Media $media = null)
+    public function registerMediaConversions(?Media $media = null): void
     {
         $this->autoRegisterThumb200();
 
